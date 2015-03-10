@@ -1,0 +1,31 @@
+<configure 
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="leam.views">
+    <!-- -*- extra stuff goes here -*- -->
+
+  <browser:page
+      for="Products.CMFCore.interfaces.IFolderish"
+      name="driverlisting_view"
+      class=".driverlistingview.DriverListingView"
+      template="driverlistingview.pt"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      for="Products.CMFCore.interfaces.IFolderish"
+      name="projectionlisting_view"
+      class=".projectionlistingview.ProjectionListingView"
+      template="projectionlistingview.pt"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      for="Products.CMFCore.interfaces.IFolderish"
+      name="scenariolisting_view"
+      class=".scenariolistingview.ScenarioListingView"
+      template="scenariolistingview.pt"
+      permission="zope.Public"
+      />
+
+</configure>

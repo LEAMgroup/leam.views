@@ -1,0 +1,113 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="leam.views">
+
+<body>
+
+    <metal:slot metal:fill-slot="content"
+      tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;">
+
+    <div class="scenarios running"
+        tal:define="jobs view/running|nothing" tal:condition="jobs">
+      <h2>Running Scenario</h2>
+      <table class="listing">
+          <thead>
+            <tr>
+              <td>Title</td>
+              <td>Modeler</td>
+              <td>Start</td>
+              <td>Actions</td>
+            </tr>
+          <tbody>
+            <tr tal:repeat="s jobs">
+              <td>
+                <a href="#" tal:attributes="href s/getURL|item/absolute_url"
+                  tal:content="s/pretty_title_or_id">Title</a></td>
+              <td tal:content="s/Creator">Modeler</td>
+              <td tal:content="python:toLocalizedTime(s.modified)">Date</td>
+              <td>Terminate</td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+  
+    <div class="scenarios failed"
+      tal:define="jobs view/failed|nothing" tal:condition="jobs">
+      <h2>Failed Scenarios</h2>
+      <table class="listing">
+        <thead>
+          <tr>
+            <td>Title</td>
+            <td>Modeler</td>
+            <td>Date</td>
+            <td>Action</td>
+          </tr>
+        <tbody>
+          <tr tal:repeat="s jobs">
+            <td>
+              <a href="#" tal:attributes="href s/getURL|item/absolute_url"
+                tal:content="s/pretty_title_or_id">Title</a></td>
+            <td tal:content="s/Creator">Modeler</td>
+            <td tal:content="python:toLocalizedTime(s.modified)">Date</td>
+            <td>Delete,Revise</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="scenarios queued"
+        tal:define="jobs view/queued|nothing" tal:condition="jobs">
+      <table class="listing">
+        <thead>
+          <tr>
+            <td>Title</td>
+            <td>Modeler</td>
+            <td>Date</td>
+            <td>Position</td>
+          </tr>
+        <tbody>
+          <tr tal:repeat="s jobs">
+            <td>
+              <a href="#" tal:attributes="href s/getURL|item/absolute_url"
+                tal:content="s/pretty_title_or_id">Title</a></td>
+            <td tal:content="s/Creator">Modeler</td>
+            <td tal:content="python:toLocalizedTime(s.modified)">Date</td>
+            <td tal:content="repeat/index">1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="scenarios"
+        tal:define="jobs python:view.scenarios(('development',
+        'finished','reviewed'))" tal:condition="jobs">
+      <h2>In-Development, Finished and Reviewed Scenarios</h2>
+      <table class="listing"
+        <thead>
+          <tr>
+            <td>Title</td>
+            <td>Modeler</td>
+            <td>Date</td>
+            <td>State</td>
+          </tr>
+        <tbody>
+          <tr tal:repeat="s jobs">
+            <td>
+              <a href="#" tal:attributes="href s/getURL|item/absolute_url"
+                tal:content="s/pretty_title_or_id">Title</a></td>
+            <td tal:content="s/Creator">Modeler</td>
+            <td tal:content="python:toLocalizedTime(s.modified)">Date</td>
+            <td tal:content="s/review_state">Reviewed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <p class="server-stats"><span tal:content="view/history">0, 0, 0</span>
+      scenarios have been created in the last week, month, and year.</p>
+
+  </metal:slot>
+
+</body>
+</html>

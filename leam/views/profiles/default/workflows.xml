@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<object name="portal_workflow">
+  <bindings>
+    <type type_id="leam.luc.LUCScenario">
+      <bound-workflow workflow_id="leam.view.scenario_workflow"/>
+    </type>
+  </bindings>
+</object>
